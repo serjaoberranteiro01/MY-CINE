@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0032A8">
+<title>My Cine</title>
+
+<style>
+:root {
+  --blue: #0032A8;
+  --pink: #FC3B7F;
+  --cream: #FEF1CF;
+  --dark: #080D1B;
+  --card: #151E32;
+  --text: #FFFFFF;
+  --muted: #AAB4C8;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--dark);
+  color: var(--text);
+  font-family: Arial, sans-serif;
+}
+
+header {
+  background: linear-gradient(120deg, #0032A8, #071B50);
+  padding: 22px 18px;
+  border-bottom: 3px solid var(--pink);
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo {
+  font-size: 27px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.logo span {
+  color: var(--pink);
+}
+
+button, .upload {
+  border: 0;
+  cursor: pointer;
+  border-radius: 10px;
+  padding: 11px 14px;
+  font-weight: bold;
+}
+
+.import {
+  background: var(--pink);
+  color: white;
+}
+
+.search {
+  width: 100%;
+  margin-top: 20px;
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid #53617D;
+  background: #101A30;
+  color: white;
+  font-size: 16px;
+}
+
+nav {
+  display: flex;
+  gap: 9px;
+  padding: 14px;
+  overflow-x: auto;
+  background: #0D1528;
+}
+
+nav button {
+  white-space: nowrap;
+  background: #202D48;
+  color: white;
+}
+
+nav button.active {
+  background: var(--pink);
+}
+
+main {
+  padding: 18px;
+}
+
+.hero {
+  padding: 24px 20px;
+  border-radius: 16px;
+  background: linear-gradient(130deg, #0032A8, #182A55);
+  border: 1px solid #34549A;
+  margin-bottom: 25px;
+}
+
+.hero h1 {
+  font-size: 27px;
+  margin: 0 0 10px;
+}
+
+.hero p {
+  color: var(--cream);
+  line-height: 1.5;
+}
+
+.section-title {
+  font-size: 20px;
+  margin: 25px 0 14px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.card {
+  min-height: 115px;
+  padding: 16px;
+  border-radius: 13px;
+  background: var(--card);
+  border: 1px solid #283650;
+}
+
+.card strong {
+  display: block;
+  margin-bottom: 9px;
+  font-size: 16px;
+}
+
+.card small {
+  color: var(--muted);
+}
+
+.card .icon {
+  font-size: 27px;
+  margin-bottom: 8px;
+}
+
+#items {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.item {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 13px;
+  border: 1px solid #283650;
+  overflow-wrap: anywhere;
+}
+
+.item button {
+  margin-top: 10px;
+  background: var(--blue);
+  color: white;
+  width: 100%;
+}
+
+.item .fav {
+  background: var(--pink);
+}
+
+.player {
+  margin-top: 25px;
+  background: #111A2D;
+  padding: 14px;
+  border-radius: 14px;
+}
+
+video {
+  width: 100%;
+  max-height: 260px;
+  background: black;
+  border-radius: 10px;
+}
+
+#status {
+  color: var(--cream);
+  font-size: 13px;
+  margin-top: 10px;
+}
+
+.empty {
+  color: var(--muted);
+  padding: 15px 0;
+  line-height: 1.5;
+}
+
+footer {
+  text-align: center;
+  padding: 25px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+@media (min-width: 650px) {
+  .grid, #items {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="top">
+    <div class="logo">MY <span>CINE</span></div>
+
+    <label class="upload import">
+      + Importar lista
+      <input id="playlistFile" type="file"
+        accept=".m3u,.m3u8,.txt" hidden>
+    </label>
+  </div>
+
+  <input id="search" class="search"
+    type="search" placeholder="Buscar canais, filmes e séries...">
+</header>
+
+<nav id="menu">
+  <button class="active" data-category="Todos">Início</button>
+  <button data-category="TV">TV ao Vivo</button>
+  <button data-category="Esportes">Esportes ao Vivo</button>
+  <button data-category="Filmes">Filmes</button>
+  <button data-category="Séries">Séries</button>
+  <button data-category="Favoritos">Favoritos</button>
+</nav>
+
+<main>
+
+  <section class="hero">
+    <h1>Bem-vindo ao My Cine</h1>
+    <p>Seu espaço pessoal para assistir TV, esportes,
+    filmes e séries em um só lugar.</p>
+    <button class="import"
+      onclick="document.getElementById('playlistFile').click()">
+      Adicionar minha lista
+    </button>
+  </section>
+
+  <h2 class="section-title">Explore</h2>
+
+  <section class="grid">
+    <div class="card" onclick="filterCategory('TV')">
+      <div class="icon">📺</div>
+      <strong>TV ao Vivo</strong>
+      <small>Seus canais favoritos</small>
+    </div>
+
+    <div class="card" onclick="filterCategory('Esportes')">
+      <div class="icon">⚽</div>
+      <strong>Esportes ao Vivo</strong>
+      <small>Futebol e corridas</small>
+    </div>
+
+    <div class="card" onclick="filterCategory('Filmes')">
+      <div class="icon">🎬</div>
+      <strong>Filmes</strong>
+      <small>Seu cinema particular</small>
+    </div>
+
+    <div class="card" onclick="filterCategory('Séries')">
+      <div class="icon">🍿</div>
+      <strong>Séries</strong>
+      <small>Suas séries favoritas</small>
+    </div>
+  </section>
+
+  <h2 class="section-title" id="listTitle">Minha biblioteca</h2>
+
+  <div id="items">
+    <p class="empty">
+      Sua biblioteca está vazia. Importe uma lista M3U
+      para adicionar seus conteúdos.
+    </p>
+  </div>
+
+  <section class="player">
+    <h2>▶ Reprodutor</h2>
+    <video id="video" controls playsinline></video>
+    <div id="status">Selecione um conteúdo para reproduzir.</div>
+  </section>
+
+</main>
+
+<footer>
+  MY CINE • Aplicativo pessoal
+</footer>
+
+<script>
+let contents = [];
+let favorites = [];
+let currentCategory = "Todos";
+
+const items = document.getElementById("items");
+const search = document.getElementById("search");
+const video = document.getElementById("video");
+const statusText = document.getElementById("status");
+
+function detectCategory(name, group) {
+  const text = (name + " " + group).toLowerCase();
+
+  if (/sport|esporte|futebol|football|corrida|formula 1|f1|nb
